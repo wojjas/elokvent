@@ -1,0 +1,17 @@
+.slider {
+  height: 100%;
+}
+
+.slider-slide {
+  text-align: center;
+}
+
+.word {
+  font-size: 3em;
+  line-height: 1.2em;
+}
+
+.description {
+  font-size: 2em;
+  line-height: 1.2em;
+}

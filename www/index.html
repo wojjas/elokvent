@@ -6,7 +6,7 @@
   <title></title>
 
   <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
 
   <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
   <link href="css/ionic.app.css" rel="stylesheet">
@@ -19,69 +19,43 @@
   <script src="cordova.js"></script>
 
   <!-- your app's js -->
-  <script src="js/app.js"></script>
+  <script src="app.js"></script>
+  <script src="modules/elokventModules.js"></script>
+  <script src="modules/footer/footerController.js"></script>
+  <script src="modules/main/mainController.js"></script>
+  <script src="modules/word/wordController.js"></script>
+  <script src="modules/settings/settingsController.js"></script>
 
   <style>
+    .disabled {
+      cursor: not-allowed;
+    }
+
     .scroll {
-      height: 95%;
+      height: 100%;
       /*vertical-align: middle;*/
-    }
-
-    .slider {
-      height: 95%;
-    }
-
-    .slider-slide {
-      text-align: center;
-    }
-
-    .word{
-      font-size: 3em;
-      line-height: 1.2em;
-    }
-    .description{
-      font-size: 2em;
-      line-height: 1.2em;
     }
   </style>
 </head>
 
-<body ng-app="elokvent">
+<body ng-app="elokvent" ng-controller="MainController as MainCtrl">
 
 <ion-pane>
   <ion-header-bar class="bar-stable">
-    <button class="button button-icon icon ion-home"></button>
+    <button class="button button-icon icon ion-home" ng-click="MainCtrl.goToHome()"></button>
     <h1 class="title">Elokvent</h1>
-    <button class="button button-icon icon ion-navicon"></button>
+    <button class="button button-icon icon ion-settings" ng-click="MainCtrl.openSettings()"></button>
   </ion-header-bar>
 
-  <ion-content class="has-subheader">
-
-    <ion-slide-box>
-      <ion-slide>
-        <div class="row row-center" style="height: 75%; ">
-          <div class="col col-center">
-            <!--<strong class="word">nollkupongobligation</strong>-->
-            <strong class="word">konflux</strong>
-          </div>
-        </div>
-      </ion-slide>
-      <ion-slide>
-        <div class="row row-center" style="height: 75%; ">
-          <div class="col col-center">
-            <div class="description">
-              konstant förändring
-            </div>
-          </div>
-        </div>
-      </ion-slide>
-    </ion-slide-box>
-
+  <ion-content>
+    <ion-nav-view style="background-color: #0a9dc7"></ion-nav-view>
   </ion-content>
 
-  <div class="bar bar-footer bar-stable">
-      <a class="button icon-left ion-chevron-left button-clear button-dark">Föregående</a>
-      <a class="button icon-right ion-chevron-right button-clear button-dark">Nästa</a>
+  <div class="bar bar-footer bar-stable" ng-controller="FooterController as FooterCtrl"
+       ng-if="MainCtrl.showFooterWordNav">
+    <a class="button icon-left ion-chevron-left button-clear button-dark"
+       ng-class="{disabled : FooterCtrl.isForegaendeDisabled()}">Föregående</a>
+    <a class="button icon-right ion-chevron-right button-clear button-dark">Nästa</a>
   </div>
 </ion-pane>
 </body>
