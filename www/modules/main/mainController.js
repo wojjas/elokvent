@@ -9,11 +9,11 @@
   function main($scope, $state) {
     var vm = this;
 
-    vm.activate = activate;
+    vm.showFooterWordNav = false;
+
     vm.openSettings = openSettings;
     vm.goToHome = goToHome;
-    vm.nofShownWords = 1;
-    vm.showFooterWordNav = false;
+    vm.activate = activate;
 
     activate();
 
@@ -24,9 +24,11 @@
     function activate() {
       //TODO: We go through here to init the settings, get the words-dictionary etc.
       //      If not needed, use $urlRouterProvider.otherwise('/main/word'); in app.js instead.
+
       $state.go('main.word');
       vm.showFooterWordNav = true;
     }
+
 
     function openSettings() {
       $state.go('main.settings');

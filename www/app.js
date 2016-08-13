@@ -5,7 +5,8 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('elokvent', [
     'ionic',
-    'elokvent.modules'
+  'elokvent.modules',
+  'elokvent.comm'
   ])
 
 .run(function($ionicPlatform) {
