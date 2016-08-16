@@ -7,30 +7,46 @@
    Gives possibility to show Föregående and Nästa word. Enables/Disables the two buttons as appropriate.
    */
   angular.module('elokvent.modules')
-    .controller(controllerId, ['$scope', footer]);
+    .controller(controllerId, ['$scope', 'pxWords', footer]);
 
-  function footer($scope) {
+  function footer($scope, pxWords) {
     var vm = this;
+    var indexOfLatestWord = 0;             //Latest word shown, the "new" word.
+    var indexOfCurrentWord = 0;            //The word displayed right now.
     var nofShownWords = 0;
 
     vm.isForegaendeDisabled = isForegaendeDisabled;
     vm.isNastaDisabled = isNastaDisabled;
+    vm.showNextWord = showNextWord;
+    vm.showPreviousWord = showPreviousWord;
     vm.activate = activate;
 
     activate();
 
     function activate() {
-      var MainCtrl = $scope.$parent.MainCtrl;
+      indexOfLatestWord = pxWords.getIndexOfLatestWord();
+      indexOfCurrentWord = indexOfLatestWord;
+      nofShownWords = pxWords.getNofShownWords();
+    }
 
-      nofShownWords = MainCtrl.nofShownWords;
+    function showNextWord() {
+      indexOfCurrentWord += 1;
+
+      pxWords.setCurrentWord(indexOfCurrentWord);
+    }
+
+    function showPreviousWord() {
+      indexOfCurrentWord -= 1;
+
+      pxWords.setCurrentWord(indexOfCurrentWord);
     }
 
     function isForegaendeDisabled() {
-      return nofShownWords <= 1;
+      return nofShownWords <= 1 || indexOfCurrentWord == 0;
     }
 
     function isNastaDisabled() {
-      return true;
+      return indexOfLatestWord == indexOfCurrentWord;
     }
   }
 })();

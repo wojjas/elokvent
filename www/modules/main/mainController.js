@@ -4,9 +4,9 @@
   var controllerId = 'MainController';
 
   angular.module('elokvent.modules')
-    .controller(controllerId, ['$scope', '$state', main]);
+    .controller(controllerId, ['$scope', '$state', 'pxWords', main]);
 
-  function main($scope, $state) {
+  function main($scope, $state, pxWords) {
     var vm = this;
 
     vm.showFooterWordNav = false;
@@ -23,12 +23,12 @@
 
     function activate() {
       //TODO: We go through here to init the settings, get the words-dictionary etc.
-      //      If not needed, use $urlRouterProvider.otherwise('/main/word'); in app.js instead.
-
+      //TODO: If not needed, use $urlRouterProvider.otherwise('/main/word'); in app.js instead.
+      pxWords.currentWord = pxWords.getWord(pxWords.getIndexOfLatestWord());
       $state.go('main.word');
+
       vm.showFooterWordNav = true;
     }
-
 
     function openSettings() {
       $state.go('main.settings');

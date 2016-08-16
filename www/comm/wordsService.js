@@ -8,15 +8,21 @@
 
   function pxWords($http) {
     var service = {
-      getNofWords: getNofWords,
-      getNextUnshownWord: getNextUnshownWord
+      currentWordIndex: 10,
+      currentWord: null,
+
+      getIndexOfLatestWord: getIndexOfLatestWord,
+      setCurrentWord: setCurrentWord,
+      getWord: getWord,
+
+      getNofShownWords: getNofShownWords
     };
 
     return service;
 
     ///////////////////////////////////////////////////////////////////////////
 
-    function getNextUnshownWord() {
+    function getIndexOfLatestWord() {
       var words = getWords();
       var len = words.length;
       var i;
@@ -27,7 +33,31 @@
         }
       }
 
-      return words[i];
+      return i;
+    }
+
+    function setCurrentWord(index) {
+      var words = getWords();
+      this.currentWord = words[index];
+    }
+
+    function getWord(index) {
+      var words = getWords();
+
+      return words ? words[index] : null;
+    }
+
+    function getNofShownWords() {
+      var retVal = 0;
+      var words = getWords();
+
+      angular.forEach(words, function (value) {
+        if (value.lastShown) {
+          retVal += 1;
+        }
+      });
+
+      return retVal;
     }
 
     // Private ////////////////////////////////////////////////////////////////
@@ -93,12 +123,6 @@
       ];
 
       return words;
-    }
-
-    function getNofWords() {
-      var words = getWords();
-
-      return words ? words.lenght : 0;
     }
 
   }

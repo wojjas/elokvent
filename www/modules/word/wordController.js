@@ -9,7 +9,7 @@
   function word($scope, pxWords) {
     var vm = this;
 
-    vm.currentWord = null;
+    vm.pxWordsService = null;
     vm.activate = activate;
 
     activate();
@@ -19,7 +19,7 @@
     });
 
     function activate() {
-      vm.currentWord = pxWords.getNextUnshownWord();
+      vm.pxWordsService = pxWords;
     }
   }
 })();
