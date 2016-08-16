@@ -46,6 +46,10 @@ angular.module('elokvent', [
           'main': {
             templateUrl: 'modules/word/word.html',
             controller: 'WordController as WordCtrl'
+          },
+          'footer@main.word': {
+            templateUrl: 'modules/footer/footer.html',
+            controller: 'FooterController as FooterCtrl'
           }
         }
       })
