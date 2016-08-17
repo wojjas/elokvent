@@ -20,6 +20,23 @@
 
     function activate() {
       vm.pxWordsService = pxWords;
+
+      setCurrentWord();
+    }
+
+    // private: ///////////////////////////////////////////////////////////////
+
+    function setCurrentWord() {
+      //Update latest word if needed
+      var currentlyLatest = pxWords.getLatestWord();
+      var now = moment();
+      var nofDaysBetweenWords = 2;      //get this from settings
+
+      if (now.diff(currentlyLatest.premiereDate, 'days') > nofDaysBetweenWords) {
+        pxWords.setLatestWord(now);
+      }
+
+      pxWords.currentWord = pxWords.currentWord || pxWords.getLatestWord();
     }
   }
 })();

@@ -65,5 +65,5 @@ angular.module('elokvent', [
       });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/main');
+    $urlRouterProvider.otherwise('/main/word');
   });

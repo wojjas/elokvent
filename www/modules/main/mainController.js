@@ -22,8 +22,7 @@
     function activate() {
       //TODO: We go through here to init the settings, get the words-dictionary etc.
       //TODO: If not needed, use $urlRouterProvider.otherwise('/main/word'); in app.js instead.
-      pxWords.currentWord = pxWords.getWord(pxWords.getIndexOfLatestWord());
-      $state.go('main.word');
+      //$state.go('main.word');
     }
 
     function openSettings() {

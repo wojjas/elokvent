@@ -25,7 +25,7 @@
 
     function activate() {
       indexOfLatestWord = pxWords.getIndexOfLatestWord();
-      indexOfCurrentWord = indexOfLatestWord;
+      indexOfCurrentWord = pxWords.currentWordIndex !== null ? pxWords.currentWordIndex : indexOfLatestWord;
       nofShownWords = pxWords.getNofShownWords();
     }
 
