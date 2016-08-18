@@ -4,12 +4,13 @@
   var controllerId = 'WordController';
 
   angular.module('elokvent.modules')
-    .controller(controllerId, ['$scope', 'pxWords', 'pxSettings', word]);
+    .controller(controllerId, ['$scope', '$ionicSlideBoxDelegate', 'pxWords', 'pxSettings', word]);
 
-  function word($scope, pxWords, pxSettings) {
+  function word($scope, $ionicSlideBoxDelegate, pxWords, pxSettings) {
     var vm = this;
 
     vm.pxWordsService = null;
+    vm.slideWordDescription = slideWordDescription;
     vm.activate = activate;
 
     activate();
@@ -22,6 +23,11 @@
       vm.pxWordsService = pxWords;
 
       setCurrentWord();
+    }
+
+    //Slides between word and description and back
+    function slideWordDescription(index) {
+      $ionicSlideBoxDelegate.slide(index, 500);
     }
 
     // private: ///////////////////////////////////////////////////////////////
