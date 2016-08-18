@@ -1,6 +1,20 @@
-<div style="background-color: #cce5ff; height:100%">
-  <p>Settings</p>
-  <p>Title: {{SettingsCtrl.title}}</p>
+<div class="bar" style="background-color: #e6f2ff; height:100%">
+
+  <h2 class="title">Inställningar</h2>
+
+  <ion-content class="has-subheader">
+    <div class="list-card">
+      <ion-radio class="list-item" ng-model="SettingsCtrl.newWordInterval" ng-value="'daily'"
+                 ng-change="SettingsCtrl.newWordIntervalChanged()">Nytt ord varje dag
+      </ion-radio>
+      <ion-radio class="list-item" ng-model="SettingsCtrl.newWordInterval" ng-value="'biDaily'"
+                 ng-change="SettingsCtrl.newWordIntervalChanged()">Nytt ord varannan dag
+      </ion-radio>
+      <ion-radio class="list-item" ng-model="SettingsCtrl.newWordInterval" ng-value="'weekly'"
+                 ng-change="SettingsCtrl.newWordIntervalChanged()">Nytt ord varje vecka
+      </ion-radio>
+    </div>
+  </ion-content>
 </div>
 
 
