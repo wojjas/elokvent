@@ -11,6 +11,7 @@
       newWordInterval: 'biDaily'               //default setting hard coded
     };
 
+    // Public members: ////////////////////////////////////////////////////////
     var service = {
       getData: getData,
       setData: setData,
@@ -19,12 +20,15 @@
 
     return service;
 
+    ///////////////////////////////////////////////////////////////////////////
+
     function getData() {
       return data;
     }
 
     function setData(newData) {
       data.newWordInterval = newData.newWordInterval;
+      //TODO: save in persistent storage!
     }
 
     function getNewWordIntervalInDays() {

@@ -15,11 +15,12 @@
   function pxWords($http) {
 
     var START_OF_MILLENIUM = 949359600000;
+    words: null;                                    //the array with all the words objects
 
     var service = {
+      currentWord: null,                            //the currently shown word, (not the latest)
       currentWordIndex: null,
-      currentWord: null,
-      words: null,
+      currentSliderIndex: null,                     //if the word or its description is being shown
 
       getIndexOfLatestWord: getIndexOfLatestWord,
       getLatestWord: getLatestWord,

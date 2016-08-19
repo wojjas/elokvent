@@ -33,7 +33,7 @@
     }
 
     function saveNewSlideIndex(index) {
-      pxWords.sliderIndex = index;
+      pxWords.currentSliderIndex = index;
     }
 
     // private: ///////////////////////////////////////////////////////////////
@@ -52,8 +52,8 @@
     }
 
     function setCurrentSliderIndex() {
-      pxWords.sliderIndex = pxWords.sliderIndex || 0;
-      vm.activeSlide = pxWords.sliderIndex;
+      pxWords.currentSliderIndex = pxWords.currentSliderIndex || 0;
+      vm.activeSlide = pxWords.currentSliderIndex;
     }
   }
 })();
