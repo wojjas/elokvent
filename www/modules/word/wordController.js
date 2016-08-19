@@ -11,6 +11,7 @@
 
     vm.pxWordsService = null;
     vm.slideWordDescription = slideWordDescription;
+    vm.saveNewSlideIndex = saveNewSlideIndex;
     vm.activate = activate;
 
     activate();
@@ -23,11 +24,16 @@
       vm.pxWordsService = pxWords;
 
       setCurrentWord();
+      setCurrentSliderIndex();
     }
 
     //Slides between word and description and back
     function slideWordDescription(index) {
       $ionicSlideBoxDelegate.slide(index, 500);
+    }
+
+    function saveNewSlideIndex(index) {
+      pxWords.sliderIndex = index;
     }
 
     // private: ///////////////////////////////////////////////////////////////
@@ -43,6 +49,11 @@
       }
 
       pxWords.currentWord = pxWords.currentWord || pxWords.getLatestWord();
+    }
+
+    function setCurrentSliderIndex() {
+      pxWords.sliderIndex = pxWords.sliderIndex || 0;
+      vm.activeSlide = pxWords.sliderIndex;
     }
   }
 })();

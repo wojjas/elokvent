@@ -1,9 +1,13 @@
 <div class="bar bar-footer bar-stable">
-  <a class="button icon-left ion-chevron-left button-clear button-dark"
+  <a class="button icon-left ion-arrow-left-b button-clear button-dark"
      ng-class="{disabled : FooterCtrl.isForegaendeDisabled()}"
      ng-click="FooterCtrl.showPreviousWord()">Äldre</a>
-  <a class="button icon-right ion-chevron-right button-clear button-dark"
+  <a class="button icon-right ion-arrow-right-b button-clear button-dark" style="margin-left: 1em"
      ng-class="{disabled : FooterCtrl.isNastaDisabled()}"
      ng-click="FooterCtrl.showNextWord()">Nyare</a>
+
+  <a class="button icon-right ion-ios-skipforward button-clear button-dark"
+     ng-class="{disabled : FooterCtrl.isNastaDisabled()}"
+     ng-click="FooterCtrl.showLetestWord()">Senaste</a>
 </div>
 

@@ -19,6 +19,7 @@
     vm.isNastaDisabled = isNastaDisabled;
     vm.showNextWord = showNextWord;
     vm.showPreviousWord = showPreviousWord;
+    vm.showLetestWord = showLetestWord;
     vm.activate = activate;
 
     activate();
@@ -37,6 +38,12 @@
 
     function showPreviousWord() {
       indexOfCurrentWord -= 1;
+
+      pxWords.setCurrentWord(indexOfCurrentWord);
+    }
+
+    function showLetestWord() {
+      indexOfCurrentWord = indexOfLatestWord;
 
       pxWords.setCurrentWord(indexOfCurrentWord);
     }

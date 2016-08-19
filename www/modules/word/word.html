@@ -1,13 +1,16 @@
 <link rel="stylesheet" href="./modules/word/word.css">
 
-<ion-slide-box class="has-footer background" pager-click="WordCtrl.slideWordDescription(index)">
+<ion-slide-box class="has-footer background"
+               pager-click="WordCtrl.slideWordDescription(index)"
+               on-slide-changed="WordCtrl.saveNewSlideIndex(index)"
+               active-slide="WordCtrl.activeSlide">
   <ion-slide>
     <div class="row row-center" style="height: 100%; ">
       <div class="col col-center">
         <!--<strong class="word">nollkupongobligation</strong>-->
         <strong class="word">{{WordCtrl.pxWordsService.currentWord.word}}</strong>
       </div>
-      </div>
+    </div>
   </ion-slide>
   <ion-slide>
     <div class="row row-center" style="height: 100%; ">
@@ -15,8 +18,8 @@
         <div class="description">
           {{WordCtrl.pxWordsService.currentWord.description}}
         </div>
-        </div>
       </div>
+    </div>
   </ion-slide>
 </ion-slide-box>
 
