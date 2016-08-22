@@ -20,6 +20,35 @@
 
   <!-- cordova script (this will be a 404 during development) -->
   <script src="cordova.js"></script>
+  <!--Stuff for persistent storage, localForge + SQLiteDriver-->
+  <script src="lib/localforage/dist/localforage.js"></script>
+  <script src="lib/localForage-cordovaSQLiteDriver/dist/localforage-cordovasqlitedriver.js"></script>
+  <!--The script below tests the persistent storage setup-->
+  <script>
+    localforage.defineDriver(window.cordovaSQLiteDriver).then(function () {
+      return localforage.setDriver([
+        // Try setting cordovaSQLiteDriver if available,
+        window.cordovaSQLiteDriver._driver,
+        // otherwise use one of the default localforage drivers as a fallback.
+        // This should allow you to transparently do your tests in a browser
+        localforage.INDEXEDDB,
+        localforage.WEBSQL,
+        localforage.LOCALSTORAGE
+      ]);
+    }).then(function () {
+      // this should alert "cordovaSQLiteDriver" when in an emulator or a device
+      console.log('Driver type for persistent storage: ' + localforage.driver());
+
+      return localforage.setItem('testPromiseKey', 'OK');
+    }).then(function () {
+
+      return localforage.getItem('testPromiseKey');
+    }).then(function (value) {
+      console.log('Persistent storage setup: ' + value);
+    }).catch(function (err) {
+      console.log('Persistent storage setup failed, reason: ' + err);
+    });
+  </script>
 
   <!-- your app's js -->
   <script src="app.js"></script>
