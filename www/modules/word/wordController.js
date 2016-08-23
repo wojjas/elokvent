@@ -43,19 +43,24 @@
         var tmpWords = null;
         var currentlyLatest = null;
         var now = moment();
-        var nofDaysBetweenWords = pxSettings.getNewWordIntervalInDays();
+        var nofDaysBetweenWords = null;
 
         pxWords.setWords(words);
         currentlyLatest = pxWords.getLatestWord();
 
-        //Update latest word if needed
-        if (now.diff(currentlyLatest.premiereDate, 'days') > nofDaysBetweenWords) {
-          pxWords.setLatestWord(now);
-        }
+        pxSettings.psGetData().then(function (data) {
+          pxSettings.setData(data);
+          nofDaysBetweenWords = pxSettings.getNewWordIntervalInDays();
 
-        $timeout(function () {
-          pxWords.currentWord = pxWords.currentWord || pxWords.getLatestWord();
-        }, 0);
+          //Update latest word if needed
+          if (now.diff(currentlyLatest.premiereDate, 'days') > nofDaysBetweenWords) {
+            pxWords.setLatestWord(now);
+          }
+
+          $timeout(function () {
+            pxWords.currentWord = pxWords.currentWord || pxWords.getLatestWord();
+          }, 0);
+        });
       })
     }
 

@@ -32,7 +32,6 @@
       psDefineDriver: psDefineDriver,
       psSetDriver: psSetDriver,
       psGetWords: psGetWords,
-      psSaveWords: psSaveWords,
 
       setWords: setWords
     };
@@ -88,8 +87,6 @@
       return retVal;
     }
 
-    // Private ////////////////////////////////////////////////////////////////
-
     function psDefineDriver() {
       return localforage.defineDriver(window.cordovaSQLiteDriver);
     }
@@ -110,13 +107,6 @@
       return localforage.getItem('words');
     }
 
-    function psSaveWords() {
-      //We don't care about waiting for the promise to be fulfilled.
-      localforage.setItem('words', words).catch(function (err) {
-        console.log('Failed to save to persistent storage, reason: ' + err);
-      });
-    }
-
     function setWords(w) {
       if (w && w.length > 0) {   //if supplied w is null or empty, set words to initial-hard-coded values
         if (!words) {            //set only if words is not set yet to avoid triggering a bunch of stuff
@@ -125,6 +115,15 @@
       } else {
         words = getInitialWords();
       }
+    }
+
+    // Private ////////////////////////////////////////////////////////////////
+
+    function psSaveWords() {
+      //We don't care about waiting for the promise to be fulfilled.
+      localforage.setItem('words', words).catch(function (err) {
+        console.log('Failed to save to persistent storage, reason: ' + err);
+      });
     }
 
     function getInitialWords() {

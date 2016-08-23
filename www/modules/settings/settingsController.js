@@ -4,9 +4,9 @@
   var controllerId = 'SettingsController';
 
   angular.module('elokvent.modules')
-    .controller(controllerId, ['$scope', 'pxSettings', settings]);
+    .controller(controllerId, ['$scope', '$timeout', 'pxSettings', settings]);
 
-  function settings($scope, pxSettings) {
+  function settings($scope, $timeout, pxSettings) {
     var vm = this;
 
     vm.newWordInterval = null;
@@ -20,12 +20,17 @@
     });
 
     function activate() {
-      vm.newWordInterval = pxSettings.getData().newWordInterval;
+      pxSettings.psGetData().then(function (data) {
+        pxSettings.setData(data);
+
+        $timeout(function () {
+          vm.newWordInterval = data.newWordInterval;
+        }, 0);
+      });
     }
 
     function newWordIntervalChanged() {
-      var data = {};
-      data['newWordInterval'] = vm.newWordInterval;
+      var data = {newWordInterval: vm.newWordInterval};
 
       pxSettings.setData(data);
     }

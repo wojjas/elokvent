@@ -7,14 +7,14 @@
     .factory(serviceId, ['$http', pxSettings]);
 
   function pxSettings($http) {
-    var data = {
-      newWordInterval: 'biDaily'               //default setting hard coded
-    };
+    var data = null;
 
     // Public members: ////////////////////////////////////////////////////////
     var service = {
-      getData: getData,
+      //ps stands for Persistent Storage
+      psGetData: psGetData,
       setData: setData,
+
       getNewWordIntervalInDays: getNewWordIntervalInDays
     };
 
@@ -22,13 +22,21 @@
 
     ///////////////////////////////////////////////////////////////////////////
 
-    function getData() {
-      return data;
+    function psGetData() {
+      return localforage.getItem('settings');
     }
 
-    function setData(newData) {
-      data.newWordInterval = newData.newWordInterval;
-      //TODO: save in persistent storage!
+    function setData(d) {
+      if (d) {
+        data = d;
+      } else {
+        data = {
+          newWordInterval: 'biDaily'  //default setting hard coded
+        };
+      }
+
+      //Save to persistent storage!
+      psSetData();
     }
 
     function getNewWordIntervalInDays() {
@@ -47,6 +55,14 @@
       }
 
       return retVal;
+    }
+
+    // Private ////////////////////////////////////////////////////////////////
+
+    function psSetData() {
+      localforage.setItem('settings', data).catch(function (err) {
+        console.log('Failed to save settings to persistent storage, reason: ' + err);
+      });
     }
   }
 })();
