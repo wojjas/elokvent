@@ -5,27 +5,45 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('elokvent', [
     'ionic',
-  'elokvent.modules',
-  'elokvent.comm'
+    'elokvent.modules',
+    'elokvent.comm'
   ])
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+  .run(function ($ionicPlatform, pxWords) {
+    $ionicPlatform.ready(function () {
+      if (window.cordova && window.cordova.plugins.Keyboard) {
+        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+        // for form inputs)
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 
-      // Don't remove this line unless you know what you are doing. It stops the viewport
-      // from snapping when text inputs are focused. Ionic handles this internally for
-      // a much nicer keyboard experience.
-      cordova.plugins.Keyboard.disableScroll(true);
-    }
-    if(window.StatusBar) {
-      StatusBar.styleDefault();
-    }
-  });
-})
+        // Don't remove this line unless you know what you are doing. It stops the viewport
+        // from snapping when text inputs are focused. Ionic handles this internally for
+        // a much nicer keyboard experience.
+        cordova.plugins.Keyboard.disableScroll(true);
+      }
+      if (window.StatusBar) {
+        StatusBar.styleDefault();
+      }
+    });
+
+    //Init and test persistent storage:
+    //TODO: maybe move to a better place, angular-init of some kind...
+    pxWords.psDefineDriver().then(function () {
+      return pxWords.psSetDriver();
+    }).then(function () {
+      // this should alert "cordovaSQLiteDriver" when in an emulator or a device
+      console.log('Driver type for persistent storage: ' + localforage.driver());
+
+      return localforage.setItem('testPromiseKey', 'OK');
+    }).then(function () {
+
+      return localforage.getItem('testPromiseKey');
+    }).then(function (value) {
+      console.log('Persistent storage setup: ' + value);
+    }).catch(function (err) {
+      console.log('Persistent storage setup failed, reason: ' + err);
+    });
+  })
 
   .config(function ($stateProvider, $urlRouterProvider) {
     // Ionic uses AngularUI Router which uses the concept of states

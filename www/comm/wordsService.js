@@ -15,20 +15,26 @@
   function pxWords($http) {
 
     var START_OF_MILLENIUM = 949359600000;
-    words: null;                                    //the array with all the words objects
+    var words = null;                               //the array with all the words objects
 
     var service = {
       currentWord: null,                            //the currently shown word, (not the latest)
       currentWordIndex: null,
       currentSliderIndex: null,                     //if the word or its description is being shown
 
-      getIndexOfLatestWord: getIndexOfLatestWord,
       getLatestWord: getLatestWord,
       setLatestWord: setLatestWord,
+      getIndexOfLatestWord: getIndexOfLatestWord,
       setCurrentWord: setCurrentWord,
-      getWord: getWord,
+      getNofShownWords: getNofShownWords,
 
-      getNofShownWords: getNofShownWords
+      //ps stands for Persistent Storage
+      psDefineDriver: psDefineDriver,
+      psSetDriver: psSetDriver,
+      psGetWords: psGetWords,
+      psSaveWords: psSaveWords,
+
+      setWords: setWords
     };
 
     return service;
@@ -36,7 +42,6 @@
     ///////////////////////////////////////////////////////////////////////////
 
     function getIndexOfLatestWord() {
-      var words = getWords(this);
       var len = words.length;
       var i;
 
@@ -51,36 +56,28 @@
 
     //Currently latest, may need to be upgraded with a newer one (logic for that is outside this service)
     function getLatestWord() {
-      var words = getWords(this);
-
       return words[this.getIndexOfLatestWord()];
     }
 
     function setLatestWord(premiereDate) {
-      var words = getWords(this);
       var index = this.getIndexOfLatestWord();
 
       //Do nothing if we ran out of words
       if (index + 1 < words.length) {
         words[this.getIndexOfLatestWord() + 1].premiereDate = premiereDate.valueOf();
       }
+
+      //Save to persistent storage!
+      psSaveWords();
     }
 
     function setCurrentWord(index) {
-      var words = getWords(this);
       this.currentWordIndex = index;
       this.currentWord = words[index];
     }
 
-    function getWord(index) {
-      var words = getWords();
-
-      return words ? words[index] : null;
-    }
-
     function getNofShownWords() {
       var retVal = 0;
-      var words = getWords(this);
 
       angular.forEach(words, function (value) {
         if (value.premiereDate) {
@@ -93,9 +90,45 @@
 
     // Private ////////////////////////////////////////////////////////////////
 
-    function getWords(obj) {
+    function psDefineDriver() {
+      return localforage.defineDriver(window.cordovaSQLiteDriver);
+    }
 
-      var wordsFromDb = [
+    function psSetDriver() {
+      return localforage.setDriver([
+        // Try setting cordovaSQLiteDriver if available,
+        window.cordovaSQLiteDriver._driver,
+        // otherwise use one of the default localforage drivers as a fallback.
+        // This should allow you to transparently do your tests in a browser
+        localforage.INDEXEDDB,
+        localforage.WEBSQL,
+        localforage.LOCALSTORAGE
+      ]);
+    }
+
+    function psGetWords() {
+      return localforage.getItem('words');
+    }
+
+    function psSaveWords() {
+      //We don't care about waiting for the promise to be fulfilled.
+      localforage.setItem('words', words).catch(function (err) {
+        console.log('Failed to save to persistent storage, reason: ' + err);
+      });
+    }
+
+    function setWords(w) {
+      if (w && w.length > 0) {   //if supplied w is null or empty, set words to initial-hard-coded values
+        if (!words) {            //set only if words is not set yet to avoid triggering a bunch of stuff
+          words = w;
+        }
+      } else {
+        words = getInitialWords();
+      }
+    }
+
+    function getInitialWords() {
+      var initialWords = [
         {
           "word": "konflux",
           "description": "konstant förändring",
@@ -164,12 +197,7 @@
         },
       ];
 
-      if (!obj.words) {
-        obj.words = wordsFromDb;
-      }
-
-      return obj.words;
+      return initialWords;
     }
-
   }
 })();

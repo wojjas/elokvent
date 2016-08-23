@@ -25,9 +25,13 @@
     activate();
 
     function activate() {
-      indexOfLatestWord = pxWords.getIndexOfLatestWord();
-      indexOfCurrentWord = pxWords.currentWordIndex !== null ? pxWords.currentWordIndex : indexOfLatestWord;
-      nofShownWords = pxWords.getNofShownWords();
+      pxWords.psGetWords().then(function (words) {
+        pxWords.setWords(words);
+        indexOfLatestWord = pxWords.getIndexOfLatestWord();
+        nofShownWords = pxWords.getNofShownWords();
+
+        indexOfCurrentWord = pxWords.currentWordIndex !== null ? pxWords.currentWordIndex : indexOfLatestWord;
+      })
     }
 
     function showNextWord() {

@@ -15,9 +15,9 @@
 
     activate();
 
-    $scope.$on('$ionicView.enter', function (e) {
-      activate();
-    })
+    //$scope.$on('$ionicView.enter', function (e) {
+    //  activate();
+    //})
 
     function activate() {
       //TODO: We go through here to init the settings, get the words-dictionary etc.

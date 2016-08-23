@@ -4,9 +4,9 @@
   var controllerId = 'WordController';
 
   angular.module('elokvent.modules')
-    .controller(controllerId, ['$scope', '$ionicSlideBoxDelegate', 'pxWords', 'pxSettings', word]);
+    .controller(controllerId, ['$scope', '$ionicSlideBoxDelegate', '$timeout', 'pxWords', 'pxSettings', word]);
 
-  function word($scope, $ionicSlideBoxDelegate, pxWords, pxSettings) {
+  function word($scope, $ionicSlideBoxDelegate, $timeout, pxWords, pxSettings) {
     var vm = this;
 
     vm.pxWordsService = null;
@@ -39,16 +39,24 @@
     // private: ///////////////////////////////////////////////////////////////
 
     function setCurrentWord() {
-      //Update latest word if needed
-      var currentlyLatest = pxWords.getLatestWord();
-      var now = moment();
-      var nofDaysBetweenWords = pxSettings.getNewWordIntervalInDays();
+      pxWords.psGetWords().then(function (words) {
+        var tmpWords = null;
+        var currentlyLatest = null;
+        var now = moment();
+        var nofDaysBetweenWords = pxSettings.getNewWordIntervalInDays();
 
-      if (now.diff(currentlyLatest.premiereDate, 'days') > nofDaysBetweenWords) {
-        pxWords.setLatestWord(now);
-      }
+        pxWords.setWords(words);
+        currentlyLatest = pxWords.getLatestWord();
 
-      pxWords.currentWord = pxWords.currentWord || pxWords.getLatestWord();
+        //Update latest word if needed
+        if (now.diff(currentlyLatest.premiereDate, 'days') > nofDaysBetweenWords) {
+          pxWords.setLatestWord(now);
+        }
+
+        $timeout(function () {
+          pxWords.currentWord = pxWords.currentWord || pxWords.getLatestWord();
+        }, 0);
+      })
     }
 
     function setCurrentSliderIndex() {
