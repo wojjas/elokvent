@@ -134,7 +134,7 @@
           "premiereDate": START_OF_MILLENIUM,
           "favorite": "false"
         },
-        {"word": "legär", "description": "lättvändig vårdslös", "premiereDate": "", "favorite": "false"},
+        {"word": "legär", "description": "lättvindig vårdslös", "premiereDate": "", "favorite": "false"},
         {"word": "obsolet", "description": "föråldrad", "premiereDate": "", "favorite": "false"},
         {
           "word": "kverulera",
