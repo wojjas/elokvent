@@ -11,9 +11,8 @@
 
   function footer($scope, pxWords) {
     var vm = this;
-    var indexOfLatestWord = 0;             //Latest word shown, the "new" word.
-    var indexOfCurrentWord = 0;            //The word displayed right now.
-    var nofShownWords = 0;
+
+    vm.pxWordsService = null;
 
     vm.isForegaendeDisabled = isForegaendeDisabled;
     vm.isNastaDisabled = isNastaDisabled;
@@ -25,39 +24,38 @@
     activate();
 
     function activate() {
+      vm.pxWordsService = pxWords;
+
       pxWords.psGetWords().then(function (words) {
         pxWords.setWords(words);
-        indexOfLatestWord = pxWords.getIndexOfLatestWord();
-        nofShownWords = pxWords.getNofShownWords();
 
-        indexOfCurrentWord = pxWords.currentWordIndex !== null ? pxWords.currentWordIndex : indexOfLatestWord;
+        //TODO: move to some better init place
+        pxWords.currentWordIndex = pxWords.currentWordIndex !== null ? pxWords.currentWordIndex : pxWords.getIndexOfLatestWord();
       })
     }
 
     function showNextWord() {
-      indexOfCurrentWord += 1;
-
-      pxWords.setCurrentWord(indexOfCurrentWord);
+      pxWords.currentWordIndex += 1;
+      pxWords.setCurrentWord();
     }
 
     function showPreviousWord() {
-      indexOfCurrentWord -= 1;
-
-      pxWords.setCurrentWord(indexOfCurrentWord);
+      pxWords.currentWordIndex -= 1;
+      pxWords.setCurrentWord();
     }
 
     function showLetestWord() {
-      indexOfCurrentWord = indexOfLatestWord;
-
-      pxWords.setCurrentWord(indexOfCurrentWord);
+      pxWords.currentWordIndex = pxWords.getIndexOfLatestWord();
+      pxWords.setCurrentWord();
     }
 
     function isForegaendeDisabled() {
-      return nofShownWords <= 1 || indexOfCurrentWord == 0;
+      var nofShownWords = pxWords.getNofShownWords();
+      return nofShownWords <= 1 || pxWords.currentWordIndex == 0;
     }
 
     function isNastaDisabled() {
-      return indexOfLatestWord == indexOfCurrentWord;
+      return pxWords.getIndexOfLatestWord() === pxWords.currentWordIndex;
     }
   }
 })();

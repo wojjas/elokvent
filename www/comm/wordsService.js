@@ -41,6 +41,10 @@
     ///////////////////////////////////////////////////////////////////////////
 
     function getIndexOfLatestWord() {
+      if (!words) {
+        return 0;
+      }
+
       var len = words.length;
       var i;
 
@@ -59,20 +63,27 @@
     }
 
     function setLatestWord(premiereDate) {
-      var index = this.getIndexOfLatestWord();
+      var indexOfCurrentLatest = this.getIndexOfLatestWord();
+      var indexOfLatest = indexOfCurrentLatest + 1;
 
       //Do nothing if we ran out of words
-      if (index + 1 < words.length) {
-        words[this.getIndexOfLatestWord() + 1].premiereDate = premiereDate.valueOf();
-      }
+      if (indexOfLatest < words.length) {
+        words[indexOfLatest].premiereDate = premiereDate.valueOf();
 
-      //Save to persistent storage!
-      psSaveWords();
+        this.setCurrentWord(indexOfLatest);
+
+        //Save to persistent storage!
+        psSaveWords();
+      }
     }
 
     function setCurrentWord(index) {
-      this.currentWordIndex = index;
-      this.currentWord = words[index];
+      if (index) {
+        this.currentWordIndex = index;
+        this.currentWord = words[index];
+      } else {
+        this.currentWord = words[this.currentWordIndex];
+      }
     }
 
     function getNofShownWords() {
@@ -105,6 +116,7 @@
 
     function psGetWords() {
       return localforage.getItem('words');
+      //return localforage.removeItem('words');
     }
 
     function setWords(w) {
@@ -134,7 +146,7 @@
           "premiereDate": START_OF_MILLENIUM,
           "favorite": "false"
         },
-        {"word": "legär", "description": "lättvindig vårdslös", "premiereDate": "", "favorite": "false"},
+        {"word": "legär", "description": "lättvinlig vårdslös", "premiereDate": "", "favorite": "false"},
         {"word": "obsolet", "description": "föråldrad", "premiereDate": "", "favorite": "false"},
         {
           "word": "kverulera",

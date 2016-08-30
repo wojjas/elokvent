@@ -4,9 +4,9 @@
   var controllerId = 'WordController';
 
   angular.module('elokvent.modules')
-    .controller(controllerId, ['$scope', '$ionicSlideBoxDelegate', '$timeout', 'pxWords', 'pxSettings', word]);
+    .controller(controllerId, ['$scope', '$ionicSlideBoxDelegate', '$timeout', '$interval', 'pxWords', 'pxSettings', word]);
 
-  function word($scope, $ionicSlideBoxDelegate, $timeout, pxWords, pxSettings) {
+  function word($scope, $ionicSlideBoxDelegate, $timeout, $interval, pxWords, pxSettings) {
     var vm = this;
 
     vm.pxWordsService = null;
@@ -16,14 +16,12 @@
 
     activate();
 
-    $scope.$on('$ionicView.enter', function (e) {
-      activate();
-    });
-
     function activate() {
       vm.pxWordsService = pxWords;
 
-      setCurrentWord();
+      setCurrentWord(true);
+      $interval(setCurrentWord, 20000, false);   //periodically check if time to show new word
+
       setCurrentSliderIndex();
     }
 
@@ -38,9 +36,8 @@
 
     // private: ///////////////////////////////////////////////////////////////
 
-    function setCurrentWord() {
+    function setCurrentWord(respectCurrent) {
       pxWords.psGetWords().then(function (words) {
-        var tmpWords = null;
         var currentlyLatest = null;
         var now = moment();
         var nofDaysBetweenWords = null;
@@ -53,13 +50,18 @@
           nofDaysBetweenWords = pxSettings.getNewWordIntervalInDays();
 
           //Update latest word if needed
-          if (now.diff(currentlyLatest.premiereDate, 'days') > nofDaysBetweenWords) {
+          if (now.diff(currentlyLatest.premiereDate, 'minutes') > nofDaysBetweenWords) {
             pxWords.setLatestWord(now);
           }
 
           $timeout(function () {
-            pxWords.currentWord = pxWords.currentWord || pxWords.getLatestWord();
-          }, 0);
+            if (respectCurrent) {
+              pxWords.currentWord = pxWords.currentWord || pxWords.getLatestWord();
+            } else {
+              pxWords.currentWord = pxWords.getLatestWord();
+            }
+
+          }, 0, true);
         });
       })
     }
