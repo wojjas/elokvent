@@ -39,10 +39,22 @@ angular.module('elokvent', [
 
       return localforage.getItem('testPromiseKey');
     }).then(function (value) {
-      console.log('Persistent storage setup: ' + value);
-    }).catch(function (err) {
-      console.log('Persistent storage setup failed, reason: ' + err);
-    });
+        console.log('Persistent storage setup: ' + value);
+      })
+
+      ////  Comment out / uncomment depending on needs! (search terms: clear, remove, delete, data base)
+      //.then(function () {
+      //  console.log('IN DEBUG MODE, cleaning DB! words');
+      //  return localforage.removeItem('words');
+      //})
+      //.then(function () {
+      //  console.log('IN DEBUG MODE, cleaning DB! settings');
+      //  return localforage.removeItem('settings');
+      //})
+
+      .catch(function (err) {
+        console.log('Persistent storage setup failed, reason: ' + err);
+      });
   })
 
   .config(function ($stateProvider, $urlRouterProvider) {

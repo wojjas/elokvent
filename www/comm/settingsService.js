@@ -30,8 +30,11 @@
       if (d) {
         data = d;
       } else {
+        //Hardcoded default values:
         data = {
-          newWordInterval: 'biDaily'  //default setting hard coded
+          newWordInterval: 'daily',
+          newWordTime: '9',
+          pushNotifications: true
         };
       }
 
@@ -40,7 +43,7 @@
     }
 
     function getNewWordIntervalInDays(newWordInterval) {
-      var retVal = 2;
+      var retVal = 2;   //hardcoded default value
 
       switch (newWordInterval) {
         case 'daily':

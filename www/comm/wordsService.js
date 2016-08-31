@@ -116,7 +116,6 @@
 
     function psGetWords() {
       return localforage.getItem('words');
-      //return localforage.removeItem('words');
     }
 
     function setWords(w) {
