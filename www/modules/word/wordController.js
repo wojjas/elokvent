@@ -47,9 +47,9 @@
         currentlyLatest = pxWords.getLatestWord();
 
         pxSettings.psGetData().then(function (data) {
-          pxSettings.setData(data);
-          nofDaysBetweenWords = pxSettings.getNewWordIntervalInDays(data.newWordInterval);
-          hourOfDay = data.newWordTime || 9;
+          var tmpData = pxSettings.setData(data);
+          nofDaysBetweenWords = pxSettings.getNewWordIntervalInDays(tmpData.newWordInterval);
+          hourOfDay = tmpData.newWordTime;
 
           //Update latest word if needed and permitted by settings
           if (now.diff(currentlyLatest.premiereDate, 'days') >= nofDaysBetweenWords &&

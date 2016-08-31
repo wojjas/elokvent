@@ -9,12 +9,8 @@
   function settings($scope, $timeout, pxSettings) {
     var vm = this;
 
-    vm.data = {
-      newWordInterval: null,
-      newWordTime: null,
-      pushNotifications: false
-    };
-    vm.saveSettings = saveSettings;
+    vm.saveNewWordInterval = saveNewWordInterval;
+    vm.saveNewWordTime = saveNewWordTime;
     vm.activate = activate;
 
     activate();
@@ -25,16 +21,20 @@
 
     function activate() {
       pxSettings.psGetData().then(function (data) {
-        pxSettings.setData(data);
+        var tmpData = pxSettings.setData(data);
 
         $timeout(function () {
-          vm.data = data;
+          vm.data = tmpData;
         }, 0);
       });
     }
 
-    function saveSettings() {
-      pxSettings.setData(vm.data);
+    function saveNewWordInterval() {
+      pxSettings.psSetData(vm.data);
+    }
+
+    function saveNewWordTime() {
+      pxSettings.psSetData(vm.data);
     }
   }
 })();

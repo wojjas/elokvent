@@ -11,7 +11,7 @@
         </div>
 
         <select ng-model="SettingsCtrl.data.newWordInterval"
-                ng-change="SettingsCtrl.saveSettings()">
+                ng-change="SettingsCtrl.saveNewWordInterval()">
           <option value="daily">varje dag</option>
           <option value="biDaily">varannan dag</option>
           <option value="weekly">varje vecka</option>
@@ -24,7 +24,7 @@
         </div>
 
         <select ng-model="SettingsCtrl.data.newWordTime"
-                ng-change="SettingsCtrl.saveSettings()">
+                ng-change="SettingsCtrl.saveNewWordTime()">
           <option value="5">5:00</option>
           <option value="6">6:00</option>
           <option value="7">7:00</option>
@@ -52,7 +52,6 @@
       <!--toggle-class="toggle-calm">-->
       <!--Push notifiering-->
       <!--</ion-toggle>-->
-
     </div>
 
   </ion-content>

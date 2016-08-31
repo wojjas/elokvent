@@ -7,13 +7,21 @@
     .factory(serviceId, ['$http', pxSettings]);
 
   function pxSettings($http) {
-    var data = null;
+    //Hardcoded default values:
+    var data = {
+      newWordInterval: 'daily',
+      newWordTime: '9',
+      pushNotifications: true
+    };
 
     // Public members: ////////////////////////////////////////////////////////
     var service = {
       //ps stands for Persistent Storage
+      psSetData: psSetData,
       psGetData: psGetData,
+
       setData: setData,
+      getData: getData,
 
       getNewWordIntervalInDays: getNewWordIntervalInDays
     };
@@ -26,20 +34,29 @@
       return localforage.getItem('settings');
     }
 
+    //Save to persistent storage!
+    function psSetData(d) {
+      d = d || data;
+
+      localforage.setItem('settings', d).catch(function (err) {
+        console.log('Failed to save settings to persistent storage, reason: ' + err);
+      });
+    }
+
+    //if d is null default data will be set and returned
     function setData(d) {
       if (d) {
         data = d;
-      } else {
-        //Hardcoded default values:
-        data = {
-          newWordInterval: 'daily',
-          newWordTime: '9',
-          pushNotifications: true
-        };
+      }
+      else {
+        psSetData();  //and save default data to persistent storage
       }
 
-      //Save to persistent storage!
-      psSetData();
+      return data;
+    }
+
+    function getData() {
+      return data;
     }
 
     function getNewWordIntervalInDays(newWordInterval) {
@@ -58,14 +75,6 @@
       }
 
       return retVal;
-    }
-
-    // Private ////////////////////////////////////////////////////////////////
-
-    function psSetData() {
-      localforage.setItem('settings', data).catch(function (err) {
-        console.log('Failed to save settings to persistent storage, reason: ' + err);
-      });
     }
   }
 })();
