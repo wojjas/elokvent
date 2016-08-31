@@ -19,8 +19,8 @@
     function activate() {
       vm.pxWordsService = pxWords;
 
-      setCurrentWord(true);
-      $interval(setCurrentWord, 20000, false);   //periodically check if time to show new word
+      setCurrentWord('respectCurrent');
+      $interval(setCurrentWord, 20000);   //periodically check if time to show new word
 
       setCurrentSliderIndex();
     }
@@ -41,27 +41,30 @@
         var currentlyLatest = null;
         var now = moment();
         var nofDaysBetweenWords = null;
+        var hourOfDay = null;
 
         pxWords.setWords(words);
         currentlyLatest = pxWords.getLatestWord();
 
         pxSettings.psGetData().then(function (data) {
           pxSettings.setData(data);
-          nofDaysBetweenWords = pxSettings.getNewWordIntervalInDays();
+          nofDaysBetweenWords = pxSettings.getNewWordIntervalInDays(data.newWordInterval);
+          hourOfDay = data.newWordTime || 9;
 
-          //Update latest word if needed
-          if (now.diff(currentlyLatest.premiereDate, 'minutes') > nofDaysBetweenWords) {
+          //Update latest word if needed and permitted by settings
+          if (now.diff(currentlyLatest.premiereDate, 'days') >= nofDaysBetweenWords &&
+            now.hour() == hourOfDay) {
             pxWords.setLatestWord(now);
+
+            //$timeout not needed since $interval is used to get here
+            pxWords.currentWord = pxWords.getLatestWord();
           }
-
-          $timeout(function () {
-            if (respectCurrent) {
+          else if (respectCurrent === 'respectCurrent') {
+            //since invoked from activate() we need to put this setting into queue using $timeout
+            $timeout(function () {
               pxWords.currentWord = pxWords.currentWord || pxWords.getLatestWord();
-            } else {
-              pxWords.currentWord = pxWords.getLatestWord();
-            }
-
-          }, 0, true);
+            }, 0, true);
+          }
         });
       })
     }

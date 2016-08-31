@@ -3,17 +3,58 @@
   <h2 class="title">Inställningar</h2>
 
   <ion-content class="has-subheader">
-    <div class="list-card">
-      <ion-radio class="list-item" ng-model="SettingsCtrl.newWordInterval" ng-value="'daily'"
-                 ng-change="SettingsCtrl.newWordIntervalChanged()">Nytt ord varje dag
-      </ion-radio>
-      <ion-radio class="list-item" ng-model="SettingsCtrl.newWordInterval" ng-value="'biDaily'"
-                 ng-change="SettingsCtrl.newWordIntervalChanged()">Nytt ord varannan dag
-      </ion-radio>
-      <ion-radio class="list-item" ng-model="SettingsCtrl.newWordInterval" ng-value="'weekly'"
-                 ng-change="SettingsCtrl.newWordIntervalChanged()">Nytt ord varje vecka
-      </ion-radio>
+    <div class="list">
+
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Nytt ord
+        </div>
+
+        <select ng-model="SettingsCtrl.newWordInterval"
+                ng-change="SettingsCtrl.saveSettings()">
+          <option value="daily">varje dag</option>
+          <option value="biDaily">varannan dag</option>
+          <option value="weekly">varje vecka</option>
+        </select>
+      </label>
+
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Klockan
+        </div>
+
+        <select ng-model="SettingsCtrl.newWordTime"
+                ng-change="SettingsCtrl.saveSettings()">
+          <option value="5">5:00</option>
+          <option value="6">6:00</option>
+          <option value="7">7:00</option>
+          <option value="8">8:00</option>
+          <option value="9">9:00</option>
+          <option value="10">10:00</option>
+          <option value="11">11:00</option>
+          <option value="12">12:00</option>
+          <option value="13">13:00</option>
+          <option value="14">14:00</option>
+          <option value="15">15:00</option>
+          <option value="16">16:00</option>
+          <option value="17">17:00</option>
+          <option value="18">18:00</option>
+          <option value="19">19:00</option>
+          <option value="20">20:00</option>
+          <option value="21">21:00</option>
+          <option value="22">22:00</option>
+          <option value="23">23:00</option>
+        </select>
+      </label>
+
+      <!--<ion-toggle ng-model="SettingsCtrl.pushNotifications"-->
+      <!--ng-change="SettingsCtrl.saveSettings()"-->
+      <!--toggle-class="toggle-calm">-->
+      <!--Push notifiering-->
+      <!--</ion-toggle>-->
+
     </div>
+
   </ion-content>
 </div>
 

@@ -9,8 +9,10 @@
   function settings($scope, $timeout, pxSettings) {
     var vm = this;
 
-    vm.newWordInterval = null;
-    vm.newWordIntervalChanged = newWordIntervalChanged;
+    vm.newWordInterval = 'daily';
+    vm.newWordTime = '9';
+    vm.pushNotifications = true;
+    vm.saveSettings = saveSettings;
     vm.activate = activate;
 
     activate();
@@ -25,12 +27,18 @@
 
         $timeout(function () {
           vm.newWordInterval = data.newWordInterval;
+          vm.newWordTime = data.newWordTime;
+          vm.pushNotifications = data.pushNotifications;
         }, 0);
       });
     }
 
-    function newWordIntervalChanged() {
-      var data = {newWordInterval: vm.newWordInterval};
+    function saveSettings() {
+      var data = {
+        newWordInterval: vm.newWordInterval,
+        newWordTime: vm.newWordTime,
+        pushNotifications: vm.pushNotifications
+      };
 
       pxSettings.setData(data);
     }

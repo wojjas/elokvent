@@ -39,10 +39,10 @@
       psSetData();
     }
 
-    function getNewWordIntervalInDays() {
+    function getNewWordIntervalInDays(newWordInterval) {
       var retVal = 2;
 
-      switch (data.newWordInterval) {
+      switch (newWordInterval) {
         case 'daily':
           retVal = 1;
           break;
