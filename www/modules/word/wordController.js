@@ -52,9 +52,11 @@
           hourOfDay = tmpData.newWordTime;
 
           //Update latest word if needed and permitted by settings
-          if (now.diff(currentlyLatest.premiereDate, 'days') >= nofDaysBetweenWords &&
+          if (now.diff(currentlyLatest.premiereDate, 'minutes') >= nofDaysBetweenWords &&
             now.hour() == hourOfDay) {
             pxWords.setLatestWord(now);
+
+            setCurrentSliderIndex(0);
 
             //$timeout not needed since $interval is used to get here
             pxWords.currentWord = pxWords.getLatestWord();
@@ -69,9 +71,16 @@
       })
     }
 
-    function setCurrentSliderIndex() {
-      pxWords.currentSliderIndex = pxWords.currentSliderIndex || 0;
-      vm.activeSlide = pxWords.currentSliderIndex;
+    function setCurrentSliderIndex(index) {
+      if (index != undefined) {
+        pxWords.currentSliderIndex = index;
+      } else {
+        pxWords.currentSliderIndex = pxWords.currentSliderIndex || 0;
+      }
+
+      $timeout(function () {
+        vm.activeSlide = pxWords.currentSliderIndex;
+      }, 0, true);
     }
   }
 })();

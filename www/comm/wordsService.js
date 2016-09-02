@@ -145,7 +145,7 @@
           "premiereDate": START_OF_MILLENIUM,
           "favorite": "false"
         },
-        {"word": "legär", "description": "lättvinlig vårdslös", "premiereDate": "", "favorite": "false"},
+        {"word": "legär", "description": "lättvindig vårdslös", "premiereDate": "", "favorite": "false"},
         {"word": "obsolet", "description": "föråldrad", "premiereDate": "", "favorite": "false"},
         {
           "word": "kverulera",
@@ -205,6 +205,194 @@
           "premiereDate": "",
           "favorite": "false"
         },
+
+        {
+          "word": "inkognito",
+          "description": "under antaget namn (för att inte bli igenkänd)",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "stagflation",
+          "description": "konjunkturläge som kännetecknas av låg tillväxt, stor arbetslöshet och hög inflation",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "xylitol",
+          "description": "sockeralkohol som framställs genom reduktion av xylos (träsocker)",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "sekundera",
+          "description": "hjälpa, bistå",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "skabrös",
+          "description": "oanständig",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "rekorderlig",
+          "description": "utomordentlig",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "leptosom",
+          "description": "kraftlös, orkerslös, svag, vek",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "konsekutiv",
+          "description": "som följer efter varandra, följd",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "förmer",
+          "description": "snobbig, överlägsen",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "arbitär",
+          "description": "godtycklig, ej i förväg bestämd",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "misantropisk",
+          "description": "människohatare",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "konspiration",
+          "description": "hemligt samarbete",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "rabulist",
+          "description": "politisk bråkmakare",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "aristokrati",
+          "description": "adel, elit, överklassvälde",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "ultrarapid",
+          "description": "inspelningsmetod för film som innebär att kamarean går med högre bildhastighet",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "pekoral",
+          "description": "löjlig och dum men allvarligt menad (skrift)",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "inflation",
+          "description": "allmänna prishöjningar som innebär att penningsvärdet faller",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "abstrus",
+          "description": "dunkel, svårbegriplig, svårförståelig",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "kontemplera",
+          "description": "tänka djupt / intensivt",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "homogen",
+          "description": "likartad, enhetlig",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "gracil",
+          "description": "vackert spenslig, gratiös",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "hasardspel",
+          "description": "spel där utgången helt eller huvudsakligen bestäms av slumpen",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "belamra",
+          "description": "överhopa på ett hindrande, besvärande eller skrymmande sätt",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "ogin",
+          "description": "ohjälpsam, missunnsam",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "affärsängel",
+          "description": "person som i tidigt skede satsar kapital och kompetens i nystartade eller växande företag",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "luminös",
+          "description": "ljus: lysande, klar",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "kaplan",
+          "description": "kapellan, förr benämning på underordnad präst, som nu kallas komminister eller adjunkt",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "obelisk",
+          "description": "fyrkantig, avsmalnande pelare med pyramidformad topp",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "monseigneur",
+          "description": "(fra., min herre), fransk titel för högerståndspersoner",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "invektiv",
+          "description": "förolämpning, skymford, glåpord",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+        {
+          "word": "gratifikation",
+          "description": "extra belöning utöver lön eller arvode, oftast i pengar",
+          "premiereDate": "",
+          "favorite": "false"
+        },
+
       ];
 
       return initialWords;
