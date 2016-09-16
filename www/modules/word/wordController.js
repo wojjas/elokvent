@@ -52,8 +52,8 @@
           hourOfDay = tmpData.newWordTime;
 
           //Update latest word if needed and permitted by settings
-          if (now.diff(currentlyLatest.premiereDate, 'minutes') >= nofDaysBetweenWords &&
-            now.hour() == hourOfDay) {
+          if ((getDiffOfDays(now, currentlyLatest.premiereDate)) >= nofDaysBetweenWords &&
+            now.hour() >= hourOfDay) {
             pxWords.setLatestWord(now);
 
             setCurrentSliderIndex(0);
@@ -69,6 +69,19 @@
           }
         });
       })
+    }
+
+    //Get the difference in days between two dates, regardless of hours and minutes
+    function getDiffOfDays(dateA, dateB) {
+      //convert both dates to moment.js dates
+      var a = moment(dateA);
+      var b = moment(dateB);
+
+      //normalize with respect to time of day by setting both to midnight
+      a.set({'h': 0, 'm': 0, 's': 0, 'ms': 0});
+      b.set({'h': 0, 'm': 0, 's': 0, 'ms': 0});
+
+      return a.diff(b, 'days');
     }
 
     function setCurrentSliderIndex(index) {
